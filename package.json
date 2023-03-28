@@ -1,0 +1,26 @@
+{
+  "name": "untitled",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^5.52.0",
+    "@babylonjs/inspector": "^5.52.0",
+    "@babylonjs/loaders": "^5.52.0",
+    "@vue/runtime-core": "^3.2.47",
+    "babylonjs": "^5.52.0",
+    "babylonjs-gui": "^5.52.0",
+    "babylonjs-loaders": "^5.52.0",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@types/three": "^0.149.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "three": "^0.150.1",
+    "vite": "^4.1.4"
+  }
+}
