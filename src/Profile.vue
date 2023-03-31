@@ -19,10 +19,9 @@
     </div>
   </div>
   <div class="BackMenu">
-    <a>Main Menu</a>
+    <router-link to="/">Main Menu</router-link>
     <img src="./IMG/Arrow%20Right.svg">
   </div>
-
 </template>
 <script>
 
@@ -46,6 +45,9 @@ a{
   letter-spacing: 3px;
   color:#8873B6;
   font-family: "Bebas Nueue",sans-serif ;
+}
+a:link{
+  text-decoration: none;
 }
 .Ms_Pic{
   display: flex;

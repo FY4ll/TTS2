@@ -4,9 +4,6 @@
     <a>{{salle}}</a>
   </div>
 </template>
-
-
-
 <script>
 import BabylonScene from './components/Test.vue';
 
@@ -41,7 +38,7 @@ export default {
   }
   }
 </script>
-<style>
+<style scoped>
 body{
   background-color: #444444;
 }
@@ -56,5 +53,8 @@ body{
 }
 .Scene a{
   margin-left: 5%;
+}
+.Scene a:hover{
+  color: #86b673;
 }
 </style>

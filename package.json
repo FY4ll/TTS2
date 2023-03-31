@@ -8,6 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@azure/core-http": "1.1.8",
+    "@azure/msal-browser": "^2.3.1",
+    "@azure/storage-blob": "12.2.1",
     "@babylonjs/core": "^5.52.0",
     "@babylonjs/inspector": "^5.52.0",
     "@babylonjs/loaders": "^5.52.0",
@@ -15,11 +18,22 @@
     "babylonjs": "^5.52.0",
     "babylonjs-gui": "^5.52.0",
     "babylonjs-loaders": "^5.52.0",
-    "vue": "^3.2.47"
+    "bulma": "^0.7.5",
+    "core-js": "^3.6.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "tiny-emitter": "^2.1.0",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@types/three": "^0.149.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "@vue/compiler-sfc": "^3.0.0",
     "three": "^0.150.1",
     "vite": "^4.1.4"
   }
