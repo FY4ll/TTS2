@@ -51,9 +51,8 @@ export default {
 </template>
 <style scoped>
 
-
 canvas {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 100px;
 }
 </style>

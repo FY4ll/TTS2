@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <BabylonScene v-for="salle in Salles" :key="salle.id" :salle="salle"/>
+  <div class="Scene" v-for="salle in Salles" ref="scene" @click="ShowRoom">
+    <BabylonScene :salle="salle"/>
+    <a>{{salle}}</a>
   </div>
 </template>
 
@@ -23,12 +24,37 @@ export default {
         'wengen',
         'dent-du-midi',
         'jungfrau',
-'        argentine',
+        'argentine',
         'chamossaire',
         'monch',
-        'eiger'
+        'eiger',
       ]
+    }
+  },
+  methods: {
+    ShowRoom() {
+      // Sélection de la div avec la classe "Scene"
+      const scene = this.$refs.scene;
+      // Changement du style de la div
+      scene.st
     }
   }
   }
 </script>
+<style>
+body{
+  background-color: #444444;
+}
+#app{
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+.Scene{
+  display: flex;
+  align-items: center;
+  grid-column: 1;
+}
+.Scene a{
+  margin-left: 5%;
+}
+</style>
