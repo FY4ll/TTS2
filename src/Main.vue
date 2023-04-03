@@ -20,61 +20,69 @@ export default {
         store
     };
   },
-  mounted() {
-    this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
-  },
-  methods: {
-      async signIn() {
-          if (store.userInfo == null) {
-              const loginRequest = {
-                  scopes: ["openid", "profile", "User.Read"],
-              };
-
+    mounted() {
+        this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
+        const account = this.msalInstance.getAllAccounts()[0];
+        if (account) {
+            this.msalInstance.setActiveAccount(account);
+            this.getUserInfo();
+        }
+    },
+    methods: {
+        async signIn() {
+            if(store.userInfo == null){
               try {
-                  const authResult = await this.msalInstance.loginPopup(loginRequest);
-                  console.log("Authentication successful");
-                  console.log(authResult);
-
-                  // Stockage des informations de l'utilisateur
-                  this.userInfo = {
-                      name: authResult.account.name,
-                      Email: authResult.account.username,
-                      access: authResult.idToken,
+                  const loginRequest = {
+                      scopes: ["openid", "profile", "User.Read"],
                   };
-
-                  store.userInfo = this.userInfo
-                  this.setCookie(this.userInfo.access, "token")
-                  await this.getMicrosoftProfilePic(this.userInfo.access)
-              } catch (e) {
-                  console.log("Authentication failed: ", e);
+                  const authResult = await this.msalInstance.loginPopup(loginRequest);
+                  this.msalInstance.setActiveAccount(authResult.account);
+                  await this.getUserInfo();
+              } catch (error) {
+                  console.log(error);
               }
-          }
-      }, async getMicrosoftProfilePic(access) {
-          try {
-              // Faire une requête GET pour récupérer les informations de profil de l'utilisateur
-              console.log(access)
-              const response = await axios.get(`https://graph.microsoft.com/v1.0/me/photo/$value`, {
-                  headers: {
-                      'Authorization': `Bearer ${access}`
-                  },
-                  withCredentials: true // Permet de stocker les cookies
-              });
-
-              // Stocker le lien de l'image dans le store
-              store.pic = response.request.responseURL;
-              console.log(store.pic);
-          } catch (error) {
-              console.error(error);
-          }
-      }, setCookie(value, name) {
-    const date = new Date();
-    date.setTime(date.getTime() + (10 * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
+            }
+        },
+        async getUserInfo() {
+            const account = this.msalInstance.getActiveAccount();
+            if (account) {
+                const accessTokenRequest = {
+                    scopes: ["User.Read"],
+                    account: account,
+                };
+                const response = await this.msalInstance.acquireTokenSilent(
+                    accessTokenRequest
+                );
+                this.userInfo = {
+                    name: account.name,
+                    email: account.username,
+                    access: response.accessToken,
+                };
+                this.store.userInfo = this.userInfo;
+                console.log(this.userInfo)
+                await this.getMicrosoftProfilePic(this.userInfo.access);
+            }
+        },
+        async getMicrosoftProfilePic(access) {
+            try {
+                const response = await axios.get(
+                    "https://graph.microsoft.com/v1.0/me/photo/$value",
+                    {
+                        headers: {
+                            Authorization: "Bearer " + access,
+                        },
+                        responseType: "arraybuffer",
+                    }
+                );
+                const blob = new Blob([response.data], {type: "image/jpeg"});
+                const imageUrl = URL.createObjectURL(blob);
+                this.store.pic = imageUrl;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }
   }
-  };
-
 </script>
 <template>
   <div class="Arrow">
@@ -85,7 +93,8 @@ export default {
     <img src="./IMG/image.png" alt="MAIN">
   </div>
   <div class="Arrow">
-    <router-link to="/scene">Scene</router-link>
+    <router-link v-if="store.userInfo != null" to="/scene">Scene</router-link>
+      <a v-else @click="signIn">Scene</a>
     <img src="./IMG/Arrow%20Right.svg">
   </div>
 </template>

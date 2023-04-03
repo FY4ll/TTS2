@@ -4,13 +4,13 @@
   </div>
   <div class="MS_Profile">
     <div class="Ms_Pic">
-      <img src="./IMG/FakePP.png">
+      <img class="help" :src="store.pic" />
       <a>{{store.userInfo.name}}</a>
     </div>
     <div class="MS_info">
       <div class="email-container">
         <div class="email-label"><a>Email</a></div>
-        <div class="email-address"><a>{{store.userInfo.Email}}</a></div>
+        <div class="email-address"><a>{{store.userInfo.email}}</a></div>
       </div>
       <div class="workplace-container">
         <div class="workplace-label"><a>Workplace</a></div>
@@ -124,5 +124,11 @@ a:link{
 .P img{
   margin-top: -1%;
   height: 104%;
+}
+.help{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 </style>
