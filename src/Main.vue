@@ -24,24 +24,26 @@ export default {
   },
   methods: {
     async signIn() {
-      const loginRequest = {
-        scopes: ["openid", "profile", "User.Read"],
-      };
+        if(store.userInfo == null){
+          const loginRequest = {
+            scopes: ["openid", "profile", "User.Read"],
+          };
 
-      try {
-        const authResult = await this.msalInstance.loginPopup(loginRequest);
-        console.log("Authentication successful");
-        console.log(authResult);
+          try {
+            const authResult = await this.msalInstance.loginPopup(loginRequest);
+            console.log("Authentication successful");
+            console.log(authResult);
 
-        // Stockage des informations de l'utilisateur
-        this.userInfo = {
-            name: authResult.account.name,
-            Email: authResult.account.username,
-        };
-          store.userInfo = this.userInfo
-      } catch (e) {
-        console.log("Authentication failed: ", e);
-      }
+            // Stockage des informations de l'utilisateur
+            this.userInfo = {
+                name: authResult.account.name,
+                Email: authResult.account.username,
+            };
+              store.userInfo = this.userInfo
+          } catch (e) {
+            console.log("Authentication failed: ", e);
+          }
+        }
   }, getImage(){
 
       },
