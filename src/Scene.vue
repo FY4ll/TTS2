@@ -15,16 +15,11 @@ export default {
     return {
       Salles: [
         'chasseron',
-        'dent-de-vaulion' ,
         'pleiades',
         'suchet',
         'wengen',
-        'dent-du-midi',
-        'jungfrau',
         'argentine',
         'chamossaire',
-        'monch',
-        'eiger',
       ]
     }
   },
