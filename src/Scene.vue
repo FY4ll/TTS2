@@ -3,6 +3,10 @@
     <BabylonScene :salle="salle"/>
     <a>{{salle}}</a>
   </div>
+    <div class="Arrow">
+        <router-link to="/">MAIN MENU</router-link>
+        <img src="./IMG/Arrow%20Left.svg">
+    </div>
 </template>
 <script>
 import BabylonScene from './components/Test.vue';

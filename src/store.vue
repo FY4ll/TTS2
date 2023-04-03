@@ -3,6 +3,7 @@
 import { reactive } from 'vue'
 
 export const store = reactive({
-userInfo: null
+    userInfo: null,
+    pic: null
 })
 </script>

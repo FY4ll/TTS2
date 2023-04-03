@@ -1,6 +1,8 @@
 <script>
 import * as BABYLON from 'babylonjs';
 import 'babylonjs-loaders';
+import axios from "axios";
+import {store} from "core-js/internals/reflect-metadata";
 export default {
   name: 'BabylonScene',
   mounted() {
@@ -40,7 +42,7 @@ export default {
       });
 
       return scene;
-    }
+    },
   }
 };
 </script>

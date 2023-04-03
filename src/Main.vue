@@ -2,6 +2,7 @@
 import * as msal from "@azure/msal-browser";
 import Profile from "@/Profile.vue";
 import { store } from './store.vue'
+import axios from 'axios';
 export default {
 
     components: {Profile},
@@ -23,32 +24,56 @@ export default {
     this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
   },
   methods: {
-    async signIn() {
-        if(store.userInfo == null){
-          const loginRequest = {
-            scopes: ["openid", "profile", "User.Read"],
-          };
+      async signIn() {
+          if (store.userInfo == null) {
+              const loginRequest = {
+                  scopes: ["openid", "profile", "User.Read"],
+              };
 
-          try {
-            const authResult = await this.msalInstance.loginPopup(loginRequest);
-            console.log("Authentication successful");
-            console.log(authResult);
+              try {
+                  const authResult = await this.msalInstance.loginPopup(loginRequest);
+                  console.log("Authentication successful");
+                  console.log(authResult);
 
-            // Stockage des informations de l'utilisateur
-            this.userInfo = {
-                name: authResult.account.name,
-                Email: authResult.account.username,
-            };
-              store.userInfo = this.userInfo
-          } catch (e) {
-            console.log("Authentication failed: ", e);
+                  // Stockage des informations de l'utilisateur
+                  this.userInfo = {
+                      name: authResult.account.name,
+                      Email: authResult.account.username,
+                      access: authResult.idToken,
+                  };
+
+                  store.userInfo = this.userInfo
+                  this.setCookie(this.userInfo.access, "token")
+                  await this.getMicrosoftProfilePic(this.userInfo.access)
+              } catch (e) {
+                  console.log("Authentication failed: ", e);
+              }
           }
-        }
-  }, getImage(){
+      }, async getMicrosoftProfilePic(access) {
+          try {
+              // Faire une requête GET pour récupérer les informations de profil de l'utilisateur
+              console.log(access)
+              const response = await axios.get(`https://graph.microsoft.com/v1.0/me/photo/$value`, {
+                  headers: {
+                      'Authorization': `Bearer ${access}`
+                  },
+                  withCredentials: true // Permet de stocker les cookies
+              });
 
-      },
+              // Stocker le lien de l'image dans le store
+              store.pic = response.request.responseURL;
+              console.log(store.pic);
+          } catch (error) {
+              console.error(error);
+          }
+      }, setCookie(value, name) {
+    const date = new Date();
+    date.setTime(date.getTime() + (10 * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
   }
-};
+  };
 
 </script>
 <template>

@@ -4,7 +4,7 @@
   </div>
   <div class="MS_Profile">
     <div class="Ms_Pic">
-      <img src="{{store.userInfo.Email}}">
+      <img src="./IMG/FakePP.png">
       <a>{{store.userInfo.name}}</a>
     </div>
     <div class="MS_info">
@@ -24,7 +24,9 @@
   </div>
 </template>
 <script>
+import VueCookies from 'vue-cookies'
 import { store } from './store.vue'
+import Vue from "express/lib/router";
 export default{
     data(){
         return{
