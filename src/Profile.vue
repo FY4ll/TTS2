@@ -4,17 +4,17 @@
   </div>
   <div class="MS_Profile">
     <div class="Ms_Pic">
-      <img src="./IMG/FakePP.png">
-      <a>USERNAME</a>
+      <img src="{{store.userInfo.Email}}">
+      <a>{{store.userInfo.name}}</a>
     </div>
     <div class="MS_info">
       <div class="email-container">
         <div class="email-label"><a>Email</a></div>
-        <div class="email-address"><a>email@exemple.com</a></div>
+        <div class="email-address"><a>{{store.userInfo.Email}}</a></div>
       </div>
       <div class="workplace-container">
         <div class="workplace-label"><a>Workplace</a></div>
-        <div class="workplace-address"><a>Exemple Lausanne</a></div>
+        <div class="workplace-address"><a>Coming Soon</a></div>
       </div>
     </div>
   </div>
@@ -24,7 +24,16 @@
   </div>
 </template>
 <script>
+import { store } from './store.vue'
+export default{
+    data(){
+        return{
+        store
+    }
+    }
 
+
+}
 </script>
 <style>
 @font-face {
