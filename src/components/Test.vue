@@ -30,7 +30,7 @@ export default {
     methods: {
         createScene() {
             const scene = new BABYLON.Scene(this.engine);
-            scene.clearColor = new BABYLON.Color3(1, 0, 0);
+            scene.clearColor = BABYLON.Color3.FromHexString("#6d47d4");
 
             const light = new BABYLON.HemisphericLight();
 
