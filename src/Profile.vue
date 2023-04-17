@@ -37,7 +37,7 @@ export default{
 
 }
 </script>
-<style>
+<style scoped>
 @font-face {
   font-family: 'Bebas Nueue';
   src: url('~@/assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
