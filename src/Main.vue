@@ -10,9 +10,9 @@ export default {
     return {
       msalConfig: {
         auth: {
-          clientId: "a7bb9be7-109d-4c12-9f58-b977f84a3700",
-          authority: "https://login.microsoftonline.com/de084535-12a9-406c-bd84-d4bbcdb1a7b4",
-          redirectUri: "http://localhost:5173",
+          clientId: "",
+          authority: "",
+          redirectUri: "",
         },
       },
       msalInstance: null,
