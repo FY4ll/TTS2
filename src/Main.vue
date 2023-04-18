@@ -79,11 +79,12 @@ export default {
             } catch (error) {
                 console.error(error);
             }
-        }
+        },
+
     }
 }
 </script>
-<template>
+<template class="display">
     <div class="Arrow">
         <router-link to="/profile" @click="signIn">Profile</router-link>
         <img src="./IMG/Arrow%20Left.svg">
@@ -102,19 +103,6 @@ export default {
     font-family: 'Bebas Nueue';
     src: url('src/assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
 }
-#app{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    margin-top: 100%;
-}
-a{
-    font-size: 64px;
-    color:#8873B6;
-    font-family: "Bebas Nueue",sans-serif ;
-}
-a:link{
-    text-decoration: none;
-}
 div{
     display: flex;
     justify-content: center;
@@ -126,10 +114,14 @@ div{
     display: grid;
     grid-template-rows: repeat(2,1fr);
 }
-.Arrow a{
+.Arrow a {
     display: flex;
     margin-top: 100%;
     align-items: center;
     justify-content: center;
+}
+.display{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
 }
 </style>

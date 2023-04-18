@@ -1,11 +1,17 @@
+<template>
+    <div>
+        <canvas ref="renderCanvas" @click="expandCanvas"></canvas>
+    </div>
+</template>
+
 <script>
 import * as BABYLON from 'babylonjs';
 import 'babylonjs-loaders';
 import {store} from '../store.vue'
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
             store
         }
     },
@@ -22,9 +28,8 @@ export default {
         window.addEventListener('resize', () => {
             this.engine.resize();
         });
-
     },
-    props:{
+    props: {
         salle: String
     },
     methods: {
@@ -56,28 +61,31 @@ export default {
             if (canvas.classList.contains('canvas-fullscreen')) {
                 this.engine.resize();
             }
-        }
+        },
+
     }
 };
 </script>
-<template>
-    <div>
-        <canvas ref="renderCanvas" @click="expandCanvas"></canvas>
-    </div>
-</template>
+
 <style scoped>
 canvas {
     width: 100%;
     height: 100%;
-    position: relative;
-    transition: all 0.3s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+@media (min-width: 768px) {
+    canvas {
+        position: relative;
+    }
 }
 .canvas-fullscreen {
-    width: 100vw;
-    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
+    width: 100vw;
+    height: 100vh;
 }
 </style>

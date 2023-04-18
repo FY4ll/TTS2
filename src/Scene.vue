@@ -13,13 +13,15 @@
 
 <script>
 import BabylonScene from './components/Test.vue';
-
+import axios from "axios";
+import { store } from './store.vue'
 export default {
     components: {
         BabylonScene,
     },
     data () {
         return {
+            store,
             Salles: [
                 'chasseron',
                 'pleiades',
@@ -30,7 +32,6 @@ export default {
             ]
         }
     },
-    methods: {
         toggleFullscreen(element) {
             element.classList.toggle('canvas-fullscreen');
             if (element.classList.contains('canvas-fullscreen')) {
@@ -63,7 +64,6 @@ export default {
                 }
             });
         },
-    },
     mounted() {
         const scenes = this.$refs.scene;
         for (let i = 0; i < scenes.length; i++) {
@@ -82,6 +82,8 @@ export default {
     grid-auto-rows: minmax(300px, auto);
     grid-gap: 20px;
     justify-items: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .Scene {
@@ -95,5 +97,11 @@ export default {
     bottom: 10px;
     left: 10px;
     font-size: 20px;
+}
+.Arrow a {
+    display: flex;
+    margin-top: 65%;
+    align-items: center;
+    justify-content: center;
 }
 </style>
