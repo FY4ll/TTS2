@@ -1,8 +1,9 @@
 <script>
 import * as msal from "@azure/msal-browser";
 import Profile from "@/Profile.vue";
-import { store } from './store.vue'
+import {store} from './store.vue'
 import axios from 'axios';
+
 export default {
     components: {Profile},
     data() {
@@ -60,6 +61,7 @@ export default {
                 this.store.userInfo = this.userInfo;
                 console.log(this.userInfo)
                 await this.getMicrosoftProfilePic(this.userInfo.access);
+                await this.getLausanneRooms(this.userInfo.access)
             }
         },
         async getMicrosoftProfilePic(access) {
@@ -80,6 +82,30 @@ export default {
                 console.error(error);
             }
         },
+        async getLausanneRooms(token1) {
+            const token = token1;
+             const currentTime = Date.now();
+             const startDateTime = new Date(currentTime).toISOString();
+             const endDateTime = new Date(currentTime + 1).toISOString();
+            console.log(token)
+            const response = await axios.get('https://graph.microsoft.com/v1.0/places/microsoft.graph.room', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const lausanneRooms = response.data.value.filter(room => {
+                return room.emailAddress.indexOf("lausanne") !== -1;
+            });
+            console.log(lausanneRooms)
+            for (const room of lausanneRooms) {
+                const calendarResponse =  await axios.get(`https://graph.microsoft.com/v1.0/users/${room.emailAddress}/calendar/calendarView?startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                console.log(`Données du calendrier pour la salle ${room.displayName}:`, calendarResponse);
+            }
+        }
 
     }
 }
