@@ -5,12 +5,12 @@
     <div class="MS_Profile">
         <div class="Ms_Pic">
             <img class="help" :src="store.pic" />
-            <a>{{store.userInfo.name}}</a>
+            <a href="https://myaccount.microsoft.com">{{store.userInfo.name}}</a>
         </div>
         <div class="MS_info">
             <div class="email-container">
-                <div class="email-label"><a>Email</a></div>
-                <div class="email-address"><a>{{store.userInfo.email}}</a></div>
+                <div class="email-label"><a href="https://outlook.office365.com/mail/">Email</a></div>
+                <div class="email-address"><a href="https://outlook.office365.com/mail/">{{store.userInfo.email}}</a></div>
             </div>
             <div class="workplace-container">
                 <div class="workplace-label"><a>Workplace</a></div>
@@ -24,15 +24,13 @@
     </div>
 </template>
 <script>
-import VueCookies from 'vue-cookies'
 import { store } from './store.vue'
-import Vue from "express/lib/router";
 export default{
     data(){
         return{
-            store
+            store,
         }
-    }
+    },
 }
 </script>
 <style>
